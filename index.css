@@ -1,0 +1,9 @@
+body{
+    font-family: "Times New Roman", Times, serif;
+}
+#playerForm{
+    background-color: #eeeeee;
+    padding: 1rem;
+    border: 1px solid #e3e3e3;
+    display: inline-block;
+}

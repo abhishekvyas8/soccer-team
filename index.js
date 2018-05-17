@@ -1,9 +1,11 @@
 const from = document.querySelector('#playerForm');
 const delteAll = document.querySelector('#deleteAll');
-const players = document.querySelector('#players');
+const attack = document.querySelector('#attackers');
+const defense = document.querySelector('#defenders');
+const midfield = document.querySelector('#midfielders');
+const goalie = document.querySelector('#golaie');
 
 let vals = [];
-let index = 0;
 
 const handleSubmit = (ev) => {
     ev.preventDefault();
@@ -14,12 +16,24 @@ const handleSubmit = (ev) => {
     } 
 
     if(data['Player Name'] == ''){
-        alert('Empty Field')
+        alert('Enter Name');
+    }
+    else if(data['Position'] == 'error'){
+        alert('Select Position');
     }
     else{
-        const items = createList(data);
-        players.appendChild(items[index]);
-        index++;
+        if(data['Position'] == 'attack'){
+            attack.appendChild(createList(data));
+        }
+        else if(data['Position'] == 'defense'){
+            defense.appendChild(createList(data));
+        }
+        else if(data['Position'] == 'midfield'){
+            midfield.appendChild(createList(data));
+        }
+        else if(data['Position'] == 'goalkeeper'){
+            goalie.appendChild(createList(data));
+        }
     }
 
     ev.target.reset();
@@ -32,12 +46,21 @@ function createList(data){
     labels.forEach((label) => {
         list.appendChild(createListItem(label, data[label]));
     });
-    let btn = createButton();
-    list.appendChild(btn);
+    let del = createButton('Delete Item');
+    list.appendChild(del);
+
+    let editName = createButton('Edit Name');
+    list.appendChild(editName);
+
+    let editPos = createButton('Edit Position');
+    list.appendChild(editPos);
+    
     vals.push(list);
    
-    btn.addEventListener('click', deleteItem);
-    return vals;
+    del.addEventListener('click', deleteItem);
+    editName.addEventListener('click', editNameItem);
+    editPos.addEventListener('click', editPosition);
+    return list;
 }
 
 function createListItem(label, value){
@@ -46,9 +69,9 @@ function createListItem(label, value){
     return item;
 }
 
-function createButton(){
+function createButton(value){
     const btn = document.createElement('button');
-    btn.textContent = 'Delete Item';
+    btn.textContent = `${value}`;
     return btn;
 }
 
@@ -57,11 +80,37 @@ from.addEventListener('submit', handleSubmit);
 deleteAll.addEventListener('click', ()=>{
     players.innerHTML = '';
     vals = [];
-    index = 0;
 });
 
 const deleteItem = (ev) => {
-    players.removeChild(ev.target.parentElement);
+    ev.target.parentElement.parentElement.removeChild(ev.target.parentElement);
     vals.splice(vals.indexOf(ev.target.parentElement),1);
+}
+
+const editNameItem = (ev) => {
+    let newName = prompt('Enter new name');
+    if(newName == ''){
+        alert('No Name Entered');
+    }
+    else if(newName == null){
+    }
+    else{
+        ev.target.parentElement.children[0].textContent = `Player Name: ${newName}`
+    }
+    //edit array
+}
+
+const editPosition = (ev) => {
+    let pos = ['attack', 'defense', 'midfield', 'goal keeper'];
+    let newPos = prompt('Enter Option 1-4: \n1. Attack \n2. Defense \n3. Midfield \n4. Goal keeper');
+    if(newPos < 1 || newPos > 4){
+        alert('Enter valid position');
+    }
+    else if(newPos == null){
+    }
+    else{
+        ev.target.parentElement.children[1].textContent = `Position: ${pos[newPos-1]}`
+    }
+    //edit array
 }
 

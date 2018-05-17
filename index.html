@@ -9,30 +9,50 @@
     </head>
 
     <body>
+        <center>
         <h1>Soccer Pool</h1>
-        
-        <form id = "playerForm">
-            <p>
-                <label for = "playerName"> Enter Name: </label>
-                <input type ="text" name = "playerName" placeholder ="Enter Player Name" autofocus>
-            </p>
+        <div id="mainDiv">
 
-            <p>
-                <label for = "position"> Select Position: </label>
-                <select name = "position">
-                    <option value = "attack">Attack</option>
-                    <option value = "defense">Defense</option>
-                    <option value = "midfield">Midfield</option>
-                    <option value = "goalkeeper">Goal Keeper</option>
-                </select>
-            </p>
+            <form id = "playerForm">
+                <p>
+                    <label for = "playerName"> Enter Name: </label>
+                    <input type ="text" name = "playerName" placeholder ="Enter Player Name" autofocus>
+                </p>
 
-            <button type = "submit" id = "playerSubmit">Submit</button>
-        </form>
+                <p>
+                    <label for = "position"> Select Position: </label>
+                    <select name = "position">
+                        <option value = "error">Select Position</option>
+                        <option value = "attack">Attack</option>
+                        <option value = "defense">Defense</option>
+                        <option value = "midfield">Midfield</option>
+                        <option value = "goalkeeper">Goal Keeper</option>
+                    </select>
+                </p>
 
-        <div id ="players"></div>
+                <button type = "submit" id = "playerSubmit">Submit</button>
+            </form>
 
-        <button type = "delete" id = "deleteAll">Delete All</button>
+            <button type = "delete" id = "deleteAll" style="display: block;">Delete All</button>
+
+            <div id ="attackers">
+                <h2>Attack</h2>
+            </div>
+
+            <div id ="defenders">
+                <h2>Defense</h2>
+            </div>
+
+            <div id ="midfielders">
+                <h2>Midfield</h2>
+            </div>
+
+            <div id ="golaie">
+                <h2>Goal Keepers</h2>
+            </div>
+
+        </div>
 
         <script src = "index.js"></script>
+    </center>
     </body>
