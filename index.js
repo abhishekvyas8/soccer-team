@@ -27,6 +27,7 @@ function createList(data){
     labels.forEach((label) => {
         list.appendChild(createListItem(label, data[label]));
     });
+    list.appendChild(createButton());
     vals.push(list);
     return vals;
 }
@@ -35,6 +36,12 @@ function createListItem(label, value){
     const item = document.createElement('li');
     item.textContent = `${label}: ${value}`;
     return item;
+}
+
+function createButton(){
+    const btn = document.createElement('button');
+    btn.textContent = 'Delete Item';
+    return btn;
 }
 
 from.addEventListener('submit', handleSubmit);
