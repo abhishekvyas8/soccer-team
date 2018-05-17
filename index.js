@@ -13,9 +13,14 @@ const handleSubmit = (ev) => {
         'Position': ev.target.position.value,
     } 
 
-    const items = createList(data);
-    players.appendChild(items[index]);
-    index++;
+    if(data['Player Name'] == ''){
+        alert('Empty Field')
+    }
+    else{
+        const items = createList(data);
+        players.appendChild(items[index]);
+        index++;
+    }
 
     ev.target.reset();
     ev.target.playerName.focus();
@@ -27,8 +32,11 @@ function createList(data){
     labels.forEach((label) => {
         list.appendChild(createListItem(label, data[label]));
     });
-    list.appendChild(createButton());
+    let btn = createButton();
+    list.appendChild(btn);
     vals.push(list);
+   
+    btn.addEventListener('click', deleteItem);
     return vals;
 }
 
@@ -51,3 +59,9 @@ deleteAll.addEventListener('click', ()=>{
     vals = [];
     index = 0;
 });
+
+const deleteItem = (ev) => {
+    players.removeChild(ev.target.parentElement);
+    vals.splice(vals.indexOf(ev.target.parentElement),1);
+}
+
