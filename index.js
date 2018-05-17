@@ -3,7 +3,7 @@ const delteAll = document.querySelector('#deleteAll');
 const attack = document.querySelector('#attackers');
 const defense = document.querySelector('#defenders');
 const midfield = document.querySelector('#midfielders');
-const goalie = document.querySelector('#golaie');
+const goalie = document.querySelector('#goalie');
 
 let vals = [];
 
@@ -78,7 +78,10 @@ function createButton(value){
 from.addEventListener('submit', handleSubmit);
 
 deleteAll.addEventListener('click', ()=>{
-    players.innerHTML = '';
+    attack.innerHTML = '';
+    defense.innerHTML = '';
+    midfield.innerHTML = '';
+    goalie.innerHTML = '';
     vals = [];
 });
 
@@ -101,15 +104,40 @@ const editNameItem = (ev) => {
 }
 
 const editPosition = (ev) => {
-    let pos = ['attack', 'defense', 'midfield', 'goal keeper'];
-    let newPos = prompt('Enter Option 1-4: \n1. Attack \n2. Defense \n3. Midfield \n4. Goal keeper');
-    if(newPos < 1 || newPos > 4){
+    let prevPos = ev.target.parentElement.children[1].textContent;
+    console.log(prevPos);
+    let pos = ['attack', 'defense', 'midfield', 'goalkeeper'];
+    let newPos1 = prompt('Enter Option 1-4: \n1. Attack \n2. Defense \n3. Midfield \n4. Goal keeper');
+    let newPos = Number(newPos1);
+    
+    if(isNaN(newPos) || newPos < 1 || newPos > 4){
         alert('Enter valid position');
     }
     else if(newPos == null){
     }
     else{
-        ev.target.parentElement.children[1].textContent = `Position: ${pos[newPos-1]}`
+        let posStr = `Position: ${pos[newPos-1]}`;
+        if(prevPos != posStr){
+            ev.target.parentElement.parentElement.removeChild(ev.target.parentElement);
+
+            if(newPos == 1){
+                ev.target.parentElement.children[1].textContent = `Position: ${pos[newPos-1]}`
+                attack.appendChild(ev.target.parentElement);
+            }
+            else if(newPos == 2){
+                ev.target.parentElement.children[1].textContent = `Position: ${pos[newPos-1]}`
+                defense.appendChild(ev.target.parentElement);
+            }
+            else if(newPos == 3){
+                ev.target.parentElement.children[1].textContent = `Position: ${pos[newPos-1]}`
+                midfield.appendChild(ev.target.parentElement);
+            }
+            else if(newPos == 4){
+                ev.target.parentElement.children[1].textContent = `Position: ${pos[newPos-1]}`
+                goalie.appendChild(ev.target.parentElement);
+            }
+        }
+       
     }
     //edit array
 }
