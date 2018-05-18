@@ -4,6 +4,7 @@ const attack = document.querySelector('#attackers');
 const defense = document.querySelector('#defenders');
 const midfield = document.querySelector('#midfielders');
 const goalie = document.querySelector('#goalie');
+const submitTeam = document.querySelector('#submitTeam');
 
 let vals = [];
 let team = [];
@@ -92,14 +93,13 @@ function createButton(value){
     return btn;
 }
 
-from.addEventListener('submit', handleSubmit);
-
 deleteAll.addEventListener('click', ()=>{
     attack.innerHTML = '';
     defense.innerHTML = '';
     midfield.innerHTML = '';
     goalie.innerHTML = '';
     vals = [];
+    team = [];
 });
 
 const deleteItem = (ev) => {
@@ -160,19 +160,46 @@ const editPosition = (ev) => {
 }
 
 const addToTeam = (ev) => {
-    vals.forEach((value) => {
-        //console.log(value.player);
-        if(value.player == ev.target.parentElement){
-            if(value.team == false){
-                ev.target.parentElement.classList.add('team');
-                team.push(ev.target.parentElement);
-                value.team = true;
-            }
-            else{
-                ev.target.parentElement.classList.remove('team');
-                team.splice(team.indexOf(ev.target.parentElement), 1);
-                value.team = false;
+    vals.some((value) => {
+        console.log(team);
+        if(team.length < 12 || value.team == true){
+            if(value.player == ev.target.parentElement){
+                if(value.team == false){
+                    ev.target.parentElement.classList.add('team');
+                    team.push(ev.target.parentElement);
+                    value.team = true;
+                }
+                else{
+                    ev.target.parentElement.classList.remove('team');
+                    team.splice(team.indexOf(ev.target.parentElement), 1);
+                    value.team = false;
+                }
             }
         }
+        else{
+            alert('You already have 11 players');
+            return true;
+        }
+        
     });
 }
+
+const handleTeamSubmit = () => {
+    let output = '';
+
+    if(team.length != 11){
+        output += `Your team is missing ${11-team.length} players\n`;
+    }
+    else{
+        output += `Your team is ready\n`;   
+    }
+
+    team.forEach((player) => {
+        output += `\n${player.children[0].textContent} \n${player.children[1].textContent}\n`;
+    });
+
+    alert(output);
+};
+
+from.addEventListener('submit', handleSubmit);
+submitTeam.addEventListener('click', handleTeamSubmit);
