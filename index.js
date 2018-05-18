@@ -6,6 +6,7 @@ const midfield = document.querySelector('#midfielders');
 const goalie = document.querySelector('#goalie');
 
 let vals = [];
+let team = [];
 
 const handleSubmit = (ev) => {
     ev.preventDefault();
@@ -54,12 +55,27 @@ function createList(data){
 
     let editPos = createButton('Edit Position');
     list.appendChild(editPos);
+
+    let addTeam = createButton('Team');
+    list.appendChild(addTeam);
+
+    /*let moveUp = createButton('Move Up');
+    list.appendChild(moveUp);
+
+    let moveDown = createButton('Move Down');
+    list.appendChild(moveDown);*/
+
+    const value = {
+        player: list,
+        team : false,
+    }
     
-    vals.push(list);
+    vals.push(value);
    
     del.addEventListener('click', deleteItem);
     editName.addEventListener('click', editNameItem);
     editPos.addEventListener('click', editPosition);
+    addTeam.addEventListener('click', addToTeam);
     return list;
 }
 
@@ -72,6 +88,7 @@ function createListItem(label, value){
 function createButton(value){
     const btn = document.createElement('button');
     btn.textContent = `${value}`;
+    btn.classList.add('button', 'secondary', 'tiny');
     return btn;
 }
 
@@ -98,7 +115,7 @@ const editNameItem = (ev) => {
     else if(newName == null){
     }
     else{
-        ev.target.parentElement.children[0].textContent = `Player Name: ${newName}`
+        ev.target.parentElement.children[0].textContent = `Player Name: ${newName}`;
     }
     //edit array
 }
@@ -142,3 +159,20 @@ const editPosition = (ev) => {
     //edit array
 }
 
+const addToTeam = (ev) => {
+    vals.forEach((value) => {
+        //console.log(value.player);
+        if(value.player == ev.target.parentElement){
+            if(value.team == false){
+                ev.target.parentElement.classList.add('team');
+                team.push(ev.target.parentElement);
+                value.team = true;
+            }
+            else{
+                ev.target.parentElement.classList.remove('team');
+                team.splice(team.indexOf(ev.target.parentElement), 1);
+                value.team = false;
+            }
+        }
+    });
+}

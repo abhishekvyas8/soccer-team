@@ -5,6 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Players Pool</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation.css">
         <link rel = "stylesheet" href ="index.css">
     </head>
 
@@ -15,12 +16,10 @@
 
             <form id = "playerForm">
                 <p>
-                    <label for = "playerName"> Enter Name: </label>
                     <input type ="text" name = "playerName" placeholder ="Enter Player Name" autofocus>
                 </p>
 
                 <p>
-                    <label for = "position"> Select Position: </label>
                     <select name = "position">
                         <option value = "error">Select Position</option>
                         <option value = "attack">Attack</option>
@@ -29,29 +28,29 @@
                         <option value = "goalkeeper">Goal Keeper</option>
                     </select>
                 </p>
-
-                <button type = "submit" id = "playerSubmit">Submit</button>
+                
+                <button type = "submit" id = "playerSubmit" class = "button secondary"> Submit</button>
             </form>
 
-            <button type = "delete" id = "deleteAll" style="display: block;">Delete All</button>
+            <button type = "delete" id = "deleteAll" class = "button secondary">Delete All</button>
             
             <div class = "box">
-                <h2>Attack</h2>
+                <h2 style = "color: black">Attack</h2>
                 <div id = "attackers"></div>
             </div>
             
             <div class = "box">
-                <h2>Defense</h2>
+                <h2 style = "color: black">Defense</h2>
                 <div id = "defenders"></div>
             </div>
 
             <div class = "box">
-                <h2>Midfield</h2>
+                <h2 style = "color: black">Midfield</h2>
                 <div id = "midfielders"></div>
             </div>
 
             <div class = "box">
-                <h2>Goal Keepers</h2>
+                <h2 style = "color: black">Goal Keepers</h2>
                 <div id = "goalie"></div>
             </div>
 

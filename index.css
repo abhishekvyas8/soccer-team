@@ -17,4 +17,22 @@ li{
     border: 1px solid #000000;
     display: block;
     margin: 50px 400px;
+    font-weight: bold;
+}
+
+#deleteAll{
+    display: block;
+    margin: 1rem;
+}
+
+#allPlayers{
+    font-weight: bold;
+}
+
+.box button{
+    margin: 0 0.5rem;
+}
+
+.team{
+    color: #5977ff;
 }
