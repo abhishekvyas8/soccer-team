@@ -170,7 +170,6 @@ const editPosition = (ev) => {
 
 const addToTeam = (ev) => {
     vals.some((value) => {
-        console.log(team);
         if(team.length < 12 || value.team == true){
             if(value.player == ev.target.parentElement){
                 if(value.team == false){
@@ -196,7 +195,10 @@ const addToTeam = (ev) => {
 const handleTeamSubmit = () => {
     let output = '';
 
-    if(team.length != 11){
+    if(team.length == 0){
+        output += `Your team is empty`
+    }
+    else if(team.length != 11){
         output += `Your team is missing ${11-team.length} players\n`;
     }
     else{
