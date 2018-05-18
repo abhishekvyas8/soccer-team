@@ -5,6 +5,7 @@ const defense = document.querySelector('#defenders');
 const midfield = document.querySelector('#midfielders');
 const goalie = document.querySelector('#goalie');
 const submitTeam = document.querySelector('#submitTeam');
+const mainDiv = document.querySelector('#mainDiv');
 
 let vals = [];
 let team = [];
@@ -193,6 +194,13 @@ const addToTeam = (ev) => {
 }
 
 const handleTeamSubmit = () => {
+    mainDiv.classList.add('hide');
+
+    const viewTeam = document.querySelector('#viewTeam');
+    viewTeam.classList.remove('hide');
+
+    const teamNumber = document.querySelector('#teamNumber');
+
     let output = '';
 
     if(team.length == 0){
@@ -205,11 +213,24 @@ const handleTeamSubmit = () => {
         output += `Your team is ready\n`;   
     }
 
+    teamNumber.textContent = output;
+
+    const teamView = document.querySelector('#teamView');
+    
+    let idx = 1;
     team.forEach((player) => {
-        output += `\n${player.children[0].textContent} \n${player.children[1].textContent}\n`;
+        const str = document.createElement('h4');
+        str.textContent += `${idx}. ${player.children[0].textContent}; ${player.children[1].textContent}`;
+        idx++;
+        teamView.appendChild(str);
     });
 
-    alert(output);
+    const goBack = document.querySelector('#goBack');
+    goBack.addEventListener('click', ()=>{
+        mainDiv.classList.remove('hide');
+        viewTeam.classList.add('hide');
+        teamView.innerHTML = '';
+    });
 };
 
 from.addEventListener('submit', handleSubmit);

@@ -11,8 +11,9 @@
 
     <body>
         <center>
-        <h1>Soccer Pool</h1>
         <div id="mainDiv">
+            <h1>Soccer Pool</h1>
+        
 
             <form id = "playerForm">
                 <p>
@@ -54,9 +55,17 @@
                 <div id = "goalie"></div>
             </div>
 
+        
+
+            <button class="button secondary" id = "submitTeam" type = "submit"> View Team</button>
         </div>
 
-        <button class="button secondary" id = "submitTeam" type = "submit"> View Team</button>
+        <div id = "viewTeam" class = "hide">
+            <h2>Players:</h2>
+            <div id = "teamView"></div>
+            <h4 id = "teamNumber"></h4>
+            <button class="button secondary" type = "submit" id ="goBack"> Go Back </button>
+        </div>
 
         <script src = "index.js"></script>
     </center>

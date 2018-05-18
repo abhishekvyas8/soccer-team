@@ -36,3 +36,15 @@ li{
 .team{
     color: #5977ff;
 }
+
+.hide{
+    display: none;
+}
+
+#viewTeam{
+    font-weight: bold;
+}
+
+#teamView{
+    border: 1px solid black;
+}
