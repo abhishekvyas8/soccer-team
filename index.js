@@ -108,6 +108,8 @@ const deleteItem = (ev) => {
 }
 
 const editNameItem = (ev) => {
+    let prevName = ev.target.parentElement.children[0].textContent;
+    
     let newName = prompt('Enter new name');
     if(newName == ''){
         alert('No Name Entered');
@@ -116,13 +118,17 @@ const editNameItem = (ev) => {
     }
     else{
         ev.target.parentElement.children[0].textContent = `Player Name: ${newName}`;
+        vals.forEach(value => {
+            if(value.player.children[0].textContent == prevName){
+                value.player.children[0].textContent = `Player Name: ${newName}`;
+            }
+        });
     }
-    //edit array
 }
 
 const editPosition = (ev) => {
     let prevPos = ev.target.parentElement.children[1].textContent;
-    console.log(prevPos);
+    
     let pos = ['attack', 'defense', 'midfield', 'goalkeeper'];
     let newPos1 = prompt('Enter Option 1-4: \n1. Attack \n2. Defense \n3. Midfield \n4. Goal keeper');
     let newPos = Number(newPos1);
@@ -137,26 +143,29 @@ const editPosition = (ev) => {
         if(prevPos != posStr){
             ev.target.parentElement.parentElement.removeChild(ev.target.parentElement);
 
-            if(newPos == 1){
-                ev.target.parentElement.children[1].textContent = `Position: ${pos[newPos-1]}`
+            ev.target.parentElement.children[1].textContent = `Position: ${pos[newPos-1]}`
+
+            if(newPos == 1){   
                 attack.appendChild(ev.target.parentElement);
             }
             else if(newPos == 2){
-                ev.target.parentElement.children[1].textContent = `Position: ${pos[newPos-1]}`
                 defense.appendChild(ev.target.parentElement);
             }
             else if(newPos == 3){
-                ev.target.parentElement.children[1].textContent = `Position: ${pos[newPos-1]}`
                 midfield.appendChild(ev.target.parentElement);
             }
             else if(newPos == 4){
-                ev.target.parentElement.children[1].textContent = `Position: ${pos[newPos-1]}`
                 goalie.appendChild(ev.target.parentElement);
             }
+
+            vals.forEach(value => {
+                if(value.player.children[1].textContent == prevPos){
+                    value.player.children[1].textContent = `Position: ${pos[newPos-1]}`;
+                }
+            });
         }
        
     }
-    //edit array
 }
 
 const addToTeam = (ev) => {
