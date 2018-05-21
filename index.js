@@ -171,7 +171,7 @@ const editPosition = (ev) => {
 
 const addToTeam = (ev) => {
     vals.some((value) => {
-        if(team.length < 12 || value.team == true){
+        if(team.length < 11 || value.team == true){
             if(value.player == ev.target.parentElement){
                 if(value.team == false){
                     ev.target.parentElement.classList.add('team');
@@ -217,12 +217,46 @@ const handleTeamSubmit = () => {
 
     const teamView = document.querySelector('#teamView');
     
-    let idx = 1;
     team.forEach((player) => {
+        const divAll = document.createElement('span');
+        divAll.classList.add('grid-x');
+
+        const span1 = document.createElement('span');
         const str = document.createElement('h4');
-        str.textContent += `${idx}. ${player.children[0].textContent}; ${player.children[1].textContent}`;
-        idx++;
-        teamView.appendChild(str);
+        str.textContent += `${player.children[0].textContent}; ${player.children[1].textContent}`;
+        span1.classList.add('cell');
+        span1.classList.add('auto');
+        span1.appendChild(str);
+        divAll.appendChild(span1);
+
+        const span2 = document.createElement('span');
+        let up = createButton('Up');
+        let down = createButton('Down');
+
+        if(team.indexOf(player) == 0){
+            up.disabled = true;
+        }
+
+        if(team.indexOf(player) == team.length - 1){
+            down.disabled = true;
+        }
+
+        span2.classList.add('cell');
+        span2.classList.add('shrink');
+
+        span2.appendChild(up);
+        span2.appendChild(down);
+        divAll.appendChild(span2);
+
+        teamView.appendChild(divAll);
+        
+        up.addEventListener('click', (ev) => {
+            goUp(team.indexOf(player), ev);
+        });
+        down.addEventListener('click', (ev) => {
+            goDown(team.indexOf(player), ev);
+        });
+        
     });
 
     const goBack = document.querySelector('#goBack');
@@ -232,6 +266,46 @@ const handleTeamSubmit = () => {
         teamView.innerHTML = '';
     });
 };
+
+function goUp(idx, ev){
+    const temp = ev.target.parentElement.parentElement;
+    const prev = temp.previousSibling;
+    teamView.insertBefore(temp, prev);
+
+    const tempArr = team[idx];
+    team[idx] = team[idx - 1];
+    team[idx - 1] = tempArr;
+
+    if(idx == 1){
+        ev.target.disabled = true;
+        prev.children[1].children[0].disabled = false;
+    }
+
+    if(idx == team.length - 1){
+        prev.children[1].children[1].disabled = true;
+        temp.children[1].children[1].disabled = false;
+    }
+}
+
+function goDown(idx, ev){
+    const temp = ev.target.parentElement.parentElement;
+    const next = temp.nextSibling;
+    teamView.insertBefore(next, temp);
+    
+    const tempArr = team[idx];
+    team[idx] = team[idx + 1];
+    team[idx + 1] = tempArr;
+
+    if(idx == team.length - 2){
+        ev.target.disabled = true;
+        next.children[1].children[1].disabled = false;
+    }
+
+    if(idx == 0){
+        next.children[1].children[0].disabled = true;
+        temp.children[1].children[0].disabled = false;
+    }
+}
 
 from.addEventListener('submit', handleSubmit);
 submitTeam.addEventListener('click', handleTeamSubmit);

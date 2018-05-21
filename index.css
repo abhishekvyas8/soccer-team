@@ -48,3 +48,7 @@ li{
 #teamView{
     border: 1px solid black;
 }
+
+#teamView button{
+    margin: 0 0.5rem;
+}
